@@ -1,7 +1,19 @@
+import Header from "./components/Header";
+import Banner from "./components/Banner";
+import Sobre from "./components/Sobre";
+import Depoimentos from "./components/Depoimentos";
+import Galeria from "./components/Galeria"
+import LocalRetiro  from "./components/LocalRetiro"; 
+
 export default function Home() {
   return (
-    <div className="bg-blue-500 text-white p-10">
-      TESTE TAILWIND
-    </div>
+    <main className="bg-gray-100 min-h-screen">
+      <Header />
+      <Banner />
+      <Sobre />
+      <Depoimentos />
+      <Galeria />
+      <LocalRetiro />
+    </main>
   );
 }
