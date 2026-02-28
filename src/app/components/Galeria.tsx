@@ -104,4 +104,8 @@ const blocks: Block[] = [
   { type: "single", image: "/fotos/Imagem25.jpg" },
   { type: "stack", top: "/fotos/Imagem26.jpg", bottom: "/fotos/Imagem27.jpg" },
   { type: "single", image: "/fotos/Imagem28.jpg" },
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> 862c22736ea0761f6f56865539be2ebdfa4fbd0f
