@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Inscricao {
+  id Int @id @default(autoincrement())
+
+  nome String
+  cpf String
+  nascimento String
+  sexo String
+  whatsapp String
+  estadoCivil String
+  religiao String
+
+  cep String
+  rua String
+  numero String
+  complemento String?
+  bairro String
+  cidade String
+  estado String
+
+  batismo String
+  eucaristia String
+  crisma String
+  matrimonio String
+  paroquia String
+
+  doenca String
+  alergia String
+  medicamento String
+  analgesico String
+  restricoes String
+
+  conheceu String
+  contatoEmergencia String
+  nomeContato String
+  autorizaImagem String
+
+  createdAt DateTime @default(now())
+}

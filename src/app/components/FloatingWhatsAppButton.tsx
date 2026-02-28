@@ -7,8 +7,7 @@ export default function FloatingWhatsAppButton() {
       href="https://wa.me/19982305367"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-full 
-               shadow-lg hover:bg-green-600 transition-all z-50 animate-bounce"
+      className={"fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all z-50 animate-bounce"}
     >
       <FaWhatsapp size={32} />
     </a>
