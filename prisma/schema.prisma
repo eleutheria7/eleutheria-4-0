@@ -11,7 +11,7 @@ model Inscricao {
   id Int @id @default(autoincrement())
 
   nome String
-  cpf String
+  cpf String @unique
   nascimento String
   sexo String
   whatsapp String
@@ -43,5 +43,19 @@ model Inscricao {
   nomeContato String
   autorizaImagem String
 
+  /* ================= PAGAMENTO ================= */
+
+  valorTotal Float @default(150)
+  valorPago Float @default(0)
+
+  statusPagamento StatusPagamento @default(PENDENTE)
+
+  nomePagador String?
+
   createdAt DateTime @default(now())
+}
+enum StatusPagamento {
+  PENDENTE
+  PARCIAL
+  PAGO
 }
