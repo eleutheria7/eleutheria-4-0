@@ -11,7 +11,6 @@ export default function FormularioPage() {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const [birthdate, setBirthdate] = useState("");
-
   const [ageError, setAgeError] = useState("");
 
   const [address, setAddress] = useState({
@@ -21,7 +20,7 @@ export default function FormularioPage() {
     estado: "",
   });
 
-  /* ================= CALCULAR IDADE ================= */
+  /* ================= IDADE ================= */
 
   const calculateAge = (birthDate: Date) => {
     const today = new Date();
@@ -39,31 +38,25 @@ export default function FormularioPage() {
     return age;
   };
 
-  const handleDateChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setBirthdate(value);
 
     const age = calculateAge(new Date(value));
 
-    if (age < 14) {
-      setAgeError("Idade mínima: 14 anos.");
-    } else {
-      setAgeError("");
-    }
+    if (age < 14) setAgeError("Idade mínima: 14 anos.");
+    else setAgeError("");
   };
 
-  /* ================= CEP AUTOMÁTICO ================= */
+  /* ================= CEP ================= */
 
   const handleCepChange = async (
     e: React.FormEvent<HTMLInputElement>
   ) => {
 
     let cep = e.currentTarget.value.replace(/\D/g, "");
-
     cep = cep.replace(/(\d{5})(\d)/, "$1-$2").substring(0, 9);
+
     e.currentTarget.value = cep;
 
     if (cep.length === 9) {
@@ -85,25 +78,29 @@ export default function FormularioPage() {
     }
   };
 
-  /* ================= SUBMIT FAKE ================= */
+  /* ================= SUBMIT ================= */
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
     if (ageError) return;
 
-    console.log("Formulário preenchido (sem envio backend)");
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    await fetch("/api/inscricao", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    alert("Inscrição enviada!");
 
     formRef.current?.reset();
-
-    setAddress({
-      rua: "",
-      bairro: "",
-      cidade: "",
-      estado: "",
-    });
   };
 
   /* ================= UI ================= */
@@ -113,7 +110,6 @@ export default function FormularioPage() {
 
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl p-8 space-y-10">
 
-        {/* HEADER */}
         <div className="text-center">
           <h1 className="text-4xl font-bold">ELEUTHERIA 2025</h1>
           <p className="italic text-gray-600 mt-2">
@@ -122,27 +118,17 @@ export default function FormularioPage() {
           <p className="text-gray-500">I Tessalonicenses 4,3</p>
         </div>
 
-        {/* INFO */}
-        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-sm space-y-2">
-          <p><strong>Data:</strong> 20–22 Junho</p>
-          <p><strong>Cidade:</strong> Santa Bárbara d’Oeste</p>
-          <p><strong>Faixa etária:</strong> 14–30 anos</p>
-          <p><strong>Valor:</strong> R$100</p>
-        </div>
-
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="space-y-10"
-        >
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-10">
 
           {/* ================= DADOS ================= */}
+
           <section className="space-y-6">
             <h3 className="section-title">Dados do Retirante</h3>
 
-            <FormField label="Nome Completo" type="text" required />
+            <FormField name="nome" label="Nome Completo" type="text" required />
 
             <FormField
+              name="nascimento"
               label="Data de Nascimento"
               type="date"
               value={birthdate}
@@ -150,11 +136,10 @@ export default function FormularioPage() {
               required
             />
 
-            {ageError && (
-              <p className="text-red-600 text-sm">{ageError}</p>
-            )}
+            {ageError && <p className="text-red-600 text-sm">{ageError}</p>}
 
             <FormField
+              name="sexo"
               label="Sexo"
               as="radio"
               options={[
@@ -163,9 +148,10 @@ export default function FormularioPage() {
               ]}
             />
 
-            <FormField label="WhatsApp" type="text" required />
+            <FormField name="whatsapp" label="WhatsApp" type="text" required />
 
             <FormField
+              name="estadoCivil"
               label="Estado Civil"
               as="select"
               options={[
@@ -179,59 +165,60 @@ export default function FormularioPage() {
           </section>
 
           {/* ================= ENDEREÇO ================= */}
+
           <section className="space-y-6">
             <h3 className="section-title">Endereço</h3>
 
             <div className="grid md:grid-cols-2 gap-4">
 
               <FormField
+                name="cep"
                 label="CEP"
                 type="text"
                 onInput={handleCepChange}
                 required
               />
 
-              <FormField label="Rua" value={address.rua} readOnly />
+              <FormField name="rua" label="Rua" value={address.rua} readOnly />
+              <FormField name="numero" label="Número" type="number" required />
+              <FormField name="complemento" label="Complemento" />
 
-              <FormField label="Número" type="number" required />
-
-              <FormField label="Complemento" type="text" />
-
-              <FormField label="Bairro" value={address.bairro} readOnly />
-
-              <FormField label="Cidade" value={address.cidade} readOnly />
-
-              <FormField label="Estado" value={address.estado} readOnly />
+              <FormField name="bairro" label="Bairro" value={address.bairro} readOnly />
+              <FormField name="cidade" label="Cidade" value={address.cidade} readOnly />
+              <FormField name="estado" label="Estado" value={address.estado} readOnly />
 
             </div>
           </section>
 
           {/* ================= SACRAMENTOS ================= */}
+
           <section className="space-y-6">
             <h3 className="section-title">Sacramentos</h3>
 
-            <FormField label="Batismo" as="radio"
+            <FormField name="batismo" label="Batismo" as="radio"
               options={[{ value:"Sim",label:"Sim"},{ value:"Não",label:"Não"}]} />
 
-            <FormField label="1° Eucaristia" as="radio"
+            <FormField name="eucaristia" label="1° Eucaristia" as="radio"
               options={[{ value:"Sim",label:"Sim"},{ value:"Não",label:"Não"}]} />
 
-            <FormField label="Crisma" as="radio"
+            <FormField name="crisma" label="Crisma" as="radio"
               options={[{ value:"Sim",label:"Sim"},{ value:"Não",label:"Não"}]} />
 
-            <FormField label="Matrimônio" as="radio"
+            <FormField name="matrimonio" label="Matrimônio" as="radio"
               options={[{ value:"Sim",label:"Sim"},{ value:"Não",label:"Não"}]} />
           </section>
 
           {/* ================= SAÚDE ================= */}
+
           <section className="space-y-6">
             <h3 className="section-title">Saúde</h3>
 
-            <FormField label="Doença crônica?" as="textarea" />
-            <FormField label="Alergia?" as="textarea" />
-            <FormField label="Medicamento controlado?" as="textarea" />
+            <FormField name="doenca" label="Doença crônica?" as="textarea" />
+            <FormField name="alergia" label="Alergia?" as="textarea" />
+            <FormField name="medicamento" label="Medicamento controlado?" as="textarea" />
 
             <FormField
+              name="analgesico"
               label="Pode tomar analgésico?"
               as="radio"
               options={[
@@ -240,16 +227,18 @@ export default function FormularioPage() {
               ]}
             />
 
-            <FormField label="Outras restrições" as="textarea" />
+            <FormField name="restricoes" label="Outras restrições" as="textarea" />
           </section>
 
           {/* ================= COMPLEMENTAR ================= */}
+
           <section className="space-y-6">
             <h3 className="section-title">Informações Complementares</h3>
 
-            <FormField label="Paróquia/Comunidade" type="text" />
+            <FormField name="paroquia" label="Paróquia/Comunidade" type="text" />
 
             <FormField
+              name="conheceu"
               label="Como conheceu o Eleutheria?"
               as="select"
               options={[
@@ -261,10 +250,11 @@ export default function FormularioPage() {
               ]}
             />
 
-            <FormField label="Contato de Emergência" type="text" />
-            <FormField label="Nome do contato" type="text" />
+            <FormField name="contatoEmergencia" label="Contato de Emergência" />
+            <FormField name="nomeContato" label="Nome do contato" />
 
             <FormField
+              name="autorizaImagem"
               label="Autoriza uso de imagem?"
               as="radio"
               options={[
@@ -277,8 +267,7 @@ export default function FormularioPage() {
           <button
             type="submit"
             className="w-full bg-emerald-500 hover:bg-emerald-600
-            text-white py-3 rounded-xl font-semibold
-            shadow-lg transition hover:scale-[1.02]"
+            text-white py-3 rounded-xl font-semibold shadow-lg transition"
           >
             Enviar Inscrição
           </button>
@@ -286,10 +275,7 @@ export default function FormularioPage() {
         </form>
 
         <div className="text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-500"
-          >
+          <Link href="/" className="inline-flex items-center gap-2 text-emerald-600">
             <FaArrowAltCircleLeft />
             Voltar para página inicial
           </Link>
@@ -298,7 +284,6 @@ export default function FormularioPage() {
       </div>
 
       <FloatingWhatsAppButton />
-
     </div>
   );
 }
