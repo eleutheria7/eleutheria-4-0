@@ -21,7 +21,7 @@ const caveat = Caveat({
 
 export default function Depoimentos() {
   return (
-    <section className="bg-white py-32">
+    <section id="depoimentos" className="bg-white py-32">
       {/* TÍTULO */}
       <div className="text-center mb-20">
         <h2 className="text-4xl font-serif italic text-gray-900">

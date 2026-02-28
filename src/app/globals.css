@@ -27,3 +27,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.section-title{
+ @apply text-xl font-semibold text-gray-800 border-b pb-2 mb-2;
+}

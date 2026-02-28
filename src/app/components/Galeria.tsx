@@ -13,7 +13,7 @@ type Block =
 
 export default function Galeria() {
   return (
-    <section className="bg-white py-24 relative overflow-hidden">
+    <section id="fotos" className="bg-white py-24 relative overflow-hidden">
 
       {/* TÍTULO */}
       <div className="max-w-6xl mx-auto px-10 text-center mb-24">
@@ -84,24 +84,24 @@ export default function Galeria() {
 }
 
 const blocks: Block[] = [
-  { type: "stack", top: "/fotos/imagem1.jpg", bottom: "/fotos/imagem2.jpg" },
-  { type: "single", image: "/fotos/imagem3.jpg" },
-  { type: "single", image: "/fotos/imagem4.jpg" },
-  { type: "stack", top: "/fotos/imagem5.jpg", bottom: "/fotos/imagem6.jpg" },
-  { type: "single", image: "/fotos/imagem7.jpg" },
-  { type: "stack", top: "/fotos/imagem8.jpg", bottom: "/fotos/imagem9.jpg" },
-  { type: "single", image: "/fotos/imagem10.jpg" },
-  { type: "single", image: "/fotos/imagem11.jpg" },
-  { type: "stack", top: "/fotos/imagem12.jpg", bottom: "/fotos/imagem13.jpg" },
-  { type: "single", image: "/fotos/imagem14.jpg" },
-  { type: "stack", top: "/fotos/imagem15.jpg", bottom: "/fotos/imagem16.jpg" },
-  { type: "single", image: "/fotos/imagem17.jpg" },
-  { type: "single", image: "/fotos/imagem18.jpg" },
-  { type: "stack", top: "/fotos/imagem19.jpg", bottom: "/fotos/imagem20.jpg" },
-  { type: "single", image: "/fotos/imagem21.jpg" },
-  { type: "stack", top: "/fotos/imagem22.jpg", bottom: "/fotos/imagem23.jpg" },
-  { type: "single", image: "/fotos/imagem24.jpg" },
-  { type: "single", image: "/fotos/imagem25.jpg" },
-  { type: "stack", top: "/fotos/imagem26.jpg", bottom: "/fotos/imagem27.jpg" },
-  { type: "single", image: "/fotos/imagem28.jpg" },
+  { type: "stack", top: "/fotos/Imagem1.jpg", bottom: "/fotos/Imagem2.jpg" },
+  { type: "single", image: "/fotos/Imagem3.jpg" },
+  { type: "single", image: "/fotos/Imagem4.jpg" },
+  { type: "stack", top: "/fotos/Imagem5.jpg", bottom: "/fotos/Imagem6.jpg" },
+  { type: "single", image: "/fotos/Imagem7.jpg" },
+  { type: "stack", top: "/fotos/Imagem8.jpg", bottom: "/fotos/Imagem9.jpg" },
+  { type: "single", image: "/fotos/Imagem10.jpg" },
+  { type: "single", image: "/fotos/Imagem11.jpg" },
+  { type: "stack", top: "/fotos/Imagem12.jpg", bottom: "/fotos/Imagem13.jpg" },
+  { type: "single", image: "/fotos/Imagem14.jpg" },
+  { type: "stack", top: "/fotos/Imagem15.jpg", bottom: "/fotos/Imagem16.jpg" },
+  { type: "single", image: "/fotos/Imagem17.jpg" },
+  { type: "single", image: "/fotos/Imagem18.jpg" },
+  { type: "stack", top: "/fotos/Imagem19.jpg", bottom: "/fotos/Imagem20.jpg" },
+  { type: "single", image: "/fotos/Imagem21.jpg" },
+  { type: "stack", top: "/fotos/Imagem22.jpg", bottom: "/fotos/Imagem23.jpg" },
+  { type: "single", image: "/fotos/Imagem24.jpg" },
+  { type: "single", image: "/fotos/Imagem25.jpg" },
+  { type: "stack", top: "/fotos/Imagem26.jpg", bottom: "/fotos/Imagem27.jpg" },
+  { type: "single", image: "/fotos/Imagem28.jpg" },
 ];

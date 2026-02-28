@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Header() {
@@ -21,7 +22,7 @@ export default function Header() {
         scrolled ? "shadow-md" : ""
       }`}
     >
-      {/* CONTAINER INTERNO */}
+      {/* CONTAINER */}
       <div
         className={`flex items-center justify-between px-10 transition-all duration-500 ${
           scrolled ? "py-4" : "py-6"
@@ -34,8 +35,8 @@ export default function Header() {
             alt="Logo"
             width={60}
             height={60}
-            className="object-contain transition-all duration-500"
             priority
+            className="object-contain"
           />
 
           <div className="leading-tight text-black">
@@ -50,38 +51,55 @@ export default function Header() {
 
         {/* DIREITA */}
         <div className="flex items-center gap-8">
-          {/* MENU */}
+
+          {/* MENU (SCROLL NA MESMA PÁGINA) */}
           <nav>
             <ul className="flex gap-6 text-gray-800 font-medium text-lg">
-              <li className="hover:text-black cursor-pointer transition">
-                Sobre
+
+              <li>
+                <a href="#sobre" className="hover:text-black transition">
+                  Sobre
+                </a>
               </li>
-              <li className="hover:text-black cursor-pointer transition">
-                Testemunhos
+
+              <li>
+                <a href="#depoimentos" className="hover:text-black transition">
+                  Testemunhos
+                </a>
               </li>
-              <li className="hover:text-black cursor-pointer transition">
-                Fotos
+
+              <li>
+                <a href="#fotos" className="hover:text-black transition">
+                  Fotos
+                </a>
               </li>
-              <li className="hover:text-black cursor-pointer transition">
-                Local
+
+              <li>
+                <a href="#local" className="hover:text-black transition">
+                  Local
+                </a>
               </li>
+
             </ul>
           </nav>
 
           {/* BOTÕES */}
           <div className="flex items-center gap-4">
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-white transition px-6 py-2 rounded-full font-semibold shadow-md">
-              Inscrição →
-            </button>
+            <Link
+              href="/formulario"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full font-semibold shadow-md transition-all hover:scale-105"
+            >
+              Inscrição
+            </Link>
 
-            <button className="w-10 h-10 rounded-full border border-gray-400 flex items-center justify-center font-bold hover:bg-gray-100 transition">
+            <button className="text-emerald-500 w-10 h-10 rounded-full border border-emerald-400 flex items-center justify-center font-bold transition hover:bg-emerald-50">
               ?
             </button>
           </div>
         </div>
       </div>
 
-      {/* LINHA DELIMITADORA FINAL */}
+      {/* LINHA INFERIOR */}
       <div
         className={`transition-opacity duration-500 ${
           scrolled ? "opacity-100" : "opacity-0"

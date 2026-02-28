@@ -2,7 +2,7 @@
 
 export default function LocalRetiro() {
   return (
-    <section className="bg-white py-32">
+    <section id="local" className="bg-white py-32">
 
       {/* TÍTULO */}
       <div className="max-w-6xl mx-auto px-10 text-center mb-24">
@@ -41,7 +41,7 @@ export default function LocalRetiro() {
             </p>
             <p className="text-gray-600">
               Santo Antônio Sapezeiro <br />
-              Santa Bárbara d'Oeste -SP <br />
+              Santa Bárbara d´Oeste -SP <br />
               13458-820
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function LocalRetiro() {
             Ver no mapa →
           </a>
         </div>
-
+          
       </div>
 
     </section>

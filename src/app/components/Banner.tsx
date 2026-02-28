@@ -5,7 +5,7 @@ import Countdown from "../components/Countdown";
 
 export default function Banner() {
   return (
-    <div className="bg-white mt-5">
+    <div className="bg-white mt-5-white">
       <div className="w-[99%] mx-auto flex gap-2">
 
         {/* LADO ESQUERDO */}

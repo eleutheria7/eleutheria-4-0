@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Sobre() {
   return (
-    <section className="relative py-32 bg-white">
+    <section id="sobre" className="relative py-32 bg-white">
 
       {/* TÍTULO */}
       <div className="max-w-6xl mx-auto px-10 text-center mb-24">
