@@ -16,7 +16,7 @@ export default function Banner() {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/2AKDi6koRGk"
+              src="https://www.youtube.com/embed/7AU4KXimRbY"
               title="Tu és amor"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -53,9 +53,9 @@ export default function Banner() {
             </h1>
 
             <h2 className="text-xl md:text-2xl mb-6 max-w-3xl">
-              “Nós amamos porque ele nos amou primeiro”
+              “Aproximai-vos de Deus, e ele se aproximará de vós.”
               <br />
-               1 João 4, 10
+               Tiago 4, 8
             </h2>
 
             <p className="text-lg md:text-xl font-semibold mb-8">

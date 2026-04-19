@@ -41,7 +41,7 @@ export default function Countdown() {
       }
     };
 
-    calculateTimeLeft(); // calcula imediatamente
+    calculateTimeLeft(); 
     const interval = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(interval);

@@ -20,7 +20,7 @@ export default function Footer() {
           </h2>
 
           <p className="text-sm max-w-xs">
-            Grupo de jovens.
+            Grupo de jovens
           </p>
 
           <div className="space-y-3">
@@ -121,7 +121,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.facebook.com/SantaLuziaHortolandia/?locale=pt_BR"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 transition"
@@ -149,7 +149,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.youtube.com/@ParóquiaSantaLuziaHortolândia"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 transition"
