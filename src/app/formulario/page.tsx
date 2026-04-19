@@ -154,7 +154,7 @@ return(
 <div className="text-center">
 <h1 className="text-4xl text-black font-bold">ELEUTHERIA 2026</h1>
 <p className="italic text-black mt-2">
-“Nós amamos porque ele nos amou primeiro - 1 João 4, 10”
+“Aproximai-vos de Deus, e ele se aproximará de vós. -  Tiago 4, 8”
 </p>
 </div>
 <div className="bg-gray-100 text-black p-4 rounded-lg mb-8 space-y-2">
@@ -162,7 +162,7 @@ return(
     <strong>Data:</strong> 31 de julho, 1 e 2 de agosto de 2026
   </p>
   <p>
-    <strong>Música Tema:</strong> Tu és amor - FSJPII
+    <strong>Música Tema:</strong> Terra Seca - FSJPII
   </p>
   <p>
     <strong>Local:</strong> Centro de Formação Religioso – Luiza G. Freguglia

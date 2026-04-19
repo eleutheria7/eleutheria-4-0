@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type DadosPagamento = {
   nome: string;
@@ -14,6 +15,7 @@ const [cpf,setCpf]=useState("");
 const [dados,setDados]=useState<DadosPagamento|null>(null);
 const [pagador,setPagador]=useState("");
 const [valor,setValor]=useState("");
+const [pix,setPix]=useState<string|null>(null);
 const [erro,setErro]=useState("");
 const [loading,setLoading]=useState(false);
 
@@ -33,6 +35,7 @@ return value
 async function consultar(){
 
 setErro("");
+setPix(null);
 setLoading(true);
 
 try{
@@ -63,9 +66,9 @@ setLoading(false);
 }
 }
 
-/* ========= WHATSAPP ========= */
+/* ========= GERAR PIX ========= */
 
-function realizarPagamento(){
+async function gerarPix(){
 
 if(!dados) return;
 
@@ -79,27 +82,39 @@ setErro("Informe o nome do pagador");
 return;
 }
 
-const valorNumero = Number(valor);
+const valorNumero=Number(valor);
 
-if(valorNumero <= 0){
+if(valorNumero<=0){
 setErro("Informe um valor válido");
 return;
 }
 
-if(valorNumero > dados.restante){
+if(valorNumero>dados.restante){
 setErro("Valor maior que o restante");
 return;
 }
 
 setErro("");
 
-const mensagem = `Quero realizar o pagamento do retiro no valor de R$ ${valorNumero.toFixed(2)}. O PIX irá no nome de ${pagador}.`;
+const res=await fetch("/api/pagamento",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+tipo:"gerar",
+cpf,
+valor:valorNumero,
+pagador
+})
+});
 
-const numero = "5511999999999"; // 🔥 ALTERE PARA SEU NÚMERO
+const data=await res.json();
 
-const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+if(!res.ok){
+setErro(data.error);
+return;
+}
 
-window.open(url, "_blank");
+setPix(data.pix.qrcode);
 }
 
 /* ========= UI ========= */
@@ -188,13 +203,42 @@ className="w-full border p-3 rounded-lg"
 />
 
 <button
-onClick={realizarPagamento}
+onClick={gerarPix}
 className="w-full bg-green-600 text-white p-3 rounded-lg"
 >
-Realizar pagamento
+Gerar PIX
 </button>
 </>
 )}
+
+</div>
+)}
+
+{/* ===== QR CODE ===== */}
+
+{pix && (
+
+<div className="space-y-4 text-center border-t pt-6">
+
+<h2 className="font-bold">
+⚠️ Informações Importantes
+</h2>
+
+<ul className="text-sm space-y-1">
+<li>• O pagamento é identificado automaticamente.</li>
+<li>• Não envie comprovante.</li>
+<li>• Utilize apenas este QR Code.</li>
+<li>• Após o pagamento o status será atualizado.</li>
+</ul>
+
+<div className="flex justify-center">
+<Image
+src={`data:image/png;base64,${pix}`}
+alt="QR Code PIX"
+width={260}
+height={260}
+/>
+</div>
 
 </div>
 )}
