@@ -70,6 +70,7 @@ async function enviarGoogleForms(data: Inscricao) {
           "entry.1535034637": data.nome,
           "entry.215175828": data.cpf,
           "entry.51056734": data.nascimento,
+          "entry.164833740": (data.idade),
           "entry.594663434": data.sexo,
           "entry.1397532717": data.whatsapp,
           "entry.1998595048": data.estadoCivil,

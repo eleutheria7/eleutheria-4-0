@@ -12,6 +12,7 @@ export default function FormularioPage() {
 const formRef = useRef<HTMLFormElement | null>(null);
 const [loading,setLoading]=useState(false);
 const [birthdate,setBirthdate]=useState("");
+const [idade, setIdade] = useState<number | null>(null);
 const [ageError,setAgeError]=useState("");
 const [success, setSuccess] = useState(false);
 const [error, setError] = useState("");
@@ -59,14 +60,23 @@ if(m<0||(m===0&&today.getDate()<date.getDate()))age--;
 return age;
 };
 
-const handleDateChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-const value=e.target.value;
-setBirthdate(value);
+const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value;
 
-const age=calculateAge(new Date(value));
-setAgeError(age<14?"Idade mínima: 14 anos.":"");
+  setBirthdate(value);
+
+  if (!value) {
+    setIdade(null);
+    setAgeError("");
+    return;
+  }
+
+  const age = calculateAge(new Date(value));
+
+  setIdade(age); // 🔥 ESSA LINHA É O QUE FALTAVA
+
+  setAgeError(age < 14 ? "Idade mínima: 14 anos." : "");
 };
-
 /* ================= CEP ================= */
 
 const handleCepChange=async(e:React.FormEvent<HTMLInputElement>)=>{
@@ -216,11 +226,11 @@ return(
 
 {ageError&&<p className="text-red-600">{ageError}</p>}
 
-<FormField
-name="sexo"
-label="Sexo"
-as="radio"
-required
+<FormField label="Idade" value={idade ?? ""} readOnly/>
+
+<input type="hidden" name="idade" value={idade ?? ""} />
+
+<FormField name="sexo" label="Sexo" as="radio" required 
 options={[
 {value:"Masculino",label:"Masculino"},
 {value:"Feminino",label:"Feminino"},
@@ -229,11 +239,7 @@ options={[
 
 <FormField name="whatsapp" label="WhatsApp" placeholder="(19) 999999999" onInput={formatPhone} required />
 
-<FormField
-name="estadoCivil"
-label="Estado Civil"
-as="select"
-required
+<FormField name="estadoCivil" label="Estado Civil" as="select" required
 options={[
 {value:"Solteiro",label:"Solteiro"},
 {value:"Casado",label:"Casado"},
@@ -306,11 +312,7 @@ options={[
 
 <FormField name="medicamento" label="Faz uso de medicamento controlado?" as="textarea" required />
 
-<FormField
-name="analgesico"
-label="Pode tomar analgésico?"
-as="radio"
-required
+<FormField name="analgesico" label="Pode tomar analgésico?" as="radio" required
 options={[
 {value:"Sim",label:"Sim"},
 {value:"Não",label:"Não"},
@@ -326,11 +328,7 @@ options={[
 <section className="space-y-6">
 <h3 className="section-title">Informações Complementares</h3>
 
-<FormField
-name="conheceu"
-label="Como conheceu o Eleutheria?"
-as="select"
-required
+<FormField name="conheceu" label="Como conheceu o Eleutheria?" as="select" required
 options={[
 {value:"Instagram",label:"Instagram"},
 {value:"Amigos",label:"Amigos"},
@@ -340,21 +338,11 @@ options={[
 ]}
 />
 
-<FormField
-name="contatoEmergencia"
-label="Contato de emergência"
-placeholder="(19) 9999999999"
-onInput={formatPhone}
-required
-/>
+<FormField name="contatoEmergencia" label="Contato de emergência" placeholder="(19) 9999999999" onInput={formatPhone} required/>
 
 <FormField name="nomeContato" label="Nome do contato de emergência" required />
 
-<FormField
-name="autorizaImagem"
-label="Autoriza o uso de imagem?"
-as="radio"
-required
+<FormField name="autorizaImagem" label="Autoriza o uso de imagem?" as="radio" required
 options={[
 {value:"Sim",label:"Sim, autorizo"},
 {value:"Não",label:"Não autorizo"},

@@ -13,6 +13,7 @@ model Inscricao {
   nome String
   cpf String @unique
   nascimento String
+  idade Int
   sexo String
   whatsapp String
   estadoCivil String
