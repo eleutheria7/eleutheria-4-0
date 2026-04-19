@@ -35,7 +35,7 @@ export default function Banner() {
         <div className="basis-[70%] relative rounded-2xl overflow-hidden h-[520px]">
 
           <Image
-            src="/img_page/cabecalho.jpg"
+            src="/img_page/Banner.jpeg"
             alt="Banner"
             fill
             className="object-cover"
