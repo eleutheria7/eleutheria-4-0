@@ -95,7 +95,7 @@ setErro("");
 
 const mensagem = `Quero realizar o pagamento do retiro no valor de R$ ${valorNumero.toFixed(2)}. O PIX irá no nome de ${pagador}.`;
 
-const numero = "5511999999999"; // 🔥 ALTERE PARA SEU NÚMERO
+const numero = "5519998009803"; 
 
 const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
