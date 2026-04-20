@@ -27,7 +27,7 @@ export default function Sobre() {
               className="rounded-2xl object-cover w-full h-[350px] mb-6"
             />
 
-            <h2 className="text-3xl font-bold mb-4">Nossa Missão</h2>
+            <h2 className="text-black text-3xl font-bold mb-4">Nossa Missão</h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               Eleutheria nasce do desejo profundo de proporcionar um encontro
               verdadeiro com Deus. Um retiro pensado para transformar,
@@ -47,7 +47,7 @@ export default function Sobre() {
               className="rounded-2xl object-cover w-full h-[350px] mb-6"
             />
 
-            <h2 className="text-3xl font-bold mb-4">Uma Experiência Única</h2>
+            <h2 className="text-black text-3xl font-bold mb-4">Uma Experiência Única</h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               Mais do que um evento, é uma experiência de fé, comunhão
               e espiritualidade profunda.
@@ -66,7 +66,7 @@ export default function Sobre() {
               className="rounded-2xl object-cover w-full h-[350px] mb-6"
             />
 
-            <h2 className="text-3xl font-bold mb-4">Comunidade</h2>
+            <h2 className="text-black text-3xl font-bold mb-4">Comunidade</h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               Pessoas reunidas pelo mesmo propósito: buscar a Deus com
               intensidade e verdade.
@@ -85,7 +85,7 @@ export default function Sobre() {
               className="rounded-2xl object-cover w-full h-[350px] mb-6"
             />
 
-            <h2 className="text-3xl font-bold mb-4">Transformação</h2>
+            <h2 className="text-black text-3xl font-bold mb-4">Transformação</h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               Um marco espiritual que pode mudar sua caminhada para sempre.
             </p>
