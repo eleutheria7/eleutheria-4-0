@@ -12,7 +12,7 @@ export default function Sobre() {
       </div>
 
       {/* Linha central pontilhada */}
-      <div className="absolute left-1/2 top-[200px] h-[calc(100%-200px)] border-l-2 border-dashed border-gray-300 transform -translate-x-1/2"></div>
+      <div className="absolute left-1/2 top-[200px] h-[calc(100%-200px)] border-l-2 border-dashed border-black transform -translate-x-1/2"></div>
 
       <div className="space-y-40 relative z-10">
 

@@ -184,6 +184,7 @@ return(
   </p>
 </div>
 
+{/*
 <div className="text-center mb-6 bg-blue-600 text-white rounded-2xl p-4 shadow-md" style={{background:"blue", color:"white"}}>
 
   <Link
@@ -199,7 +200,9 @@ return(
     Já realizei a inscrição, quero fazer o pagamento
   </Link>
 
+
 </div>
+*/}
 
 <form ref={formRef} onSubmit={handleSubmit} className="space-y-10">
 

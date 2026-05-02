@@ -105,5 +105,19 @@ const blocks: Block[] = [
   { type: "stack", top: "/fotos/Imagem26.jpg", bottom: "/fotos/Imagem27.jpg" },
   { type: "single", image: "/fotos/Imagem28.jpg" },
 
+  { type: "stack", top: "/fotos/Imagem29.jpeg", bottom: "/fotos/Imagem30.jpeg" },
+  { type: "single", image: "/fotos/Imagem31.jpeg" },
+  { type: "single", image: "/fotos/Imagem32.jpeg" },
+  { type: "stack", top: "/fotos/Imagem33.jpeg", bottom: "/fotos/Imagem34.jpeg" },
+  { type: "single", image: "/fotos/Imagem35.jpeg" },
+  { type: "stack", top: "/fotos/Imagem36.jpeg", bottom: "/fotos/Imagem37.jpeg" },
+  { type: "single", image: "/fotos/Imagem38.jpeg" },
+  { type: "single", image: "/fotos/Imagem39.jpeg" },
+  { type: "stack", top: "/fotos/Imagem40.jpeg", bottom: "/fotos/Imagem41.jpeg" },
+  { type: "single", image: "/fotos/Imagem42.jpeg" },
+  { type: "stack", top: "/fotos/Imagem43.jpeg", bottom: "/fotos/Imagem44.jpeg" },
+  { type: "single", image: "/fotos/Imagem45.jpeg" },
+  { type: "single", image: "/fotos/Imagem46.jpeg" },
+  { type: "stack", top: "/fotos/Imagem47.jpeg", bottom: "/fotos/Imagem48.jpeg" },
 ];
 
