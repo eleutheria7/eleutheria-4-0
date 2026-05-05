@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const http = require("http");
-const qrcode = require("qrcode-terminal");
+const QRCode = require("qrcode");
 
 let sock;
 
@@ -26,13 +25,15 @@ async function start() {
     browser: ["Ubuntu", "Chrome", "120"],
   });
 
-  sock.ev.on("connection.update", (update) => {
+  sock.ev.on("connection.update", async (update) => {
     const { connection, qr, lastDisconnect } = update;
 
+    // 🔥 QR em imagem (base64)
     if (qr) {
-      console.clear();
-      console.log("📱 ESCANEIE O QR:\n");
-      qrcode.generate(qr, { small: true });
+      console.log("📱 QR gerado! Copie e abra no navegador:");
+
+      const qrImage = await QRCode.toDataURL(qr);
+      console.log(qrImage);
     }
 
     if (connection === "open") {
@@ -41,7 +42,8 @@ async function start() {
 
     if (connection === "close") {
       const shouldReconnect =
-        lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
+        lastDisconnect?.error?.output?.statusCode !==
+        DisconnectReason.loggedOut;
 
       console.log("🔄 Reconectando em 3s...");
 
@@ -75,7 +77,6 @@ async function sendMessage(phone, text) {
 /* ================= API ================= */
 
 const server = http.createServer(async (req, res) => {
-  // 🔐 Token (opcional)
   const AUTH_TOKEN = process.env.TOKEN || "meu-token";
 
   // Healthcheck (UptimeRobot)
@@ -84,9 +85,8 @@ const server = http.createServer(async (req, res) => {
     return res.end("OK");
   }
 
-  // Endpoint de envio
+  // Enviar mensagem
   if (req.method === "POST" && req.url === "/send") {
-    // 🔐 valida token
     if (req.headers.authorization !== `Bearer ${AUTH_TOKEN}`) {
       res.writeHead(401);
       return res.end("Unauthorized");
@@ -118,6 +118,8 @@ const server = http.createServer(async (req, res) => {
   res.writeHead(404);
   res.end();
 });
+
+/* ================= START ================= */
 
 const PORT = process.env.PORT || 3001;
 
