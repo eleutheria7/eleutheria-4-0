@@ -5,24 +5,65 @@ import { Prisma, Inscricao } from "@prisma/client";
 /* ================= POST ================= */
 
 export async function POST(req: Request) {
-
   const data: Inscricao = await req.json();
 
   try {
+    /* ========= TRATAMENTO ========= */
+
+    const phone = data.whatsapp.replace(/\D/g, "");
+    const cpf = data.cpf.replace(/\D/g, "");
 
     /* ========= SALVA NO BANCO ========= */
 
     await prisma.inscricao.create({
       data: {
         ...data,
-        cpf: data.cpf.replace(/\D/g,""),
-
+        cpf,
+        whatsapp: phone,
       },
     });
 
     /* ========= ENVIA PARA GOOGLE FORMS ========= */
 
-    await enviarGoogleForms(data);
+    await enviarGoogleForms({
+      ...data,
+      cpf,
+      whatsapp: phone,
+    });
+
+    /* ========= ENVIA WHATSAPP ========= */
+
+    try {
+  const mensagem = `Olá ${data.nome}! 🙏
+
+Sua inscrição no Eleutheria 2026 foi confirmada!
+
+💳 Para realizar o pagamento:
+https://seusite.com/pagamento
+
+Deus abençoe!`;
+
+  const response = await fetch(`${process.env.WHATSAPP_API_URL}/send`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // opcional (se usar token)
+      // "Authorization": "Bearer seu-token"
+    },
+    body: JSON.stringify({
+      phone: phone,
+      message: mensagem,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Falha ao enviar WhatsApp: ${response.status}`);
+  }
+
+} catch (err) {
+  console.error("Erro ao enviar WhatsApp:", err);
+}
+    /* ========= RESPOSTA ========= */
 
     return NextResponse.json({
       success: true,
@@ -30,7 +71,6 @@ export async function POST(req: Request) {
     });
 
   } catch (error) {
-
     /* CPF DUPLICADO */
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -54,9 +94,7 @@ export async function POST(req: Request) {
 /* ================= GOOGLE FORMS ================= */
 
 async function enviarGoogleForms(data: Inscricao) {
-
   try {
-
     await fetch(
       "https://docs.google.com/forms/d/e/1FAIpQLSchDI0MH83n-kWHTBYCpKgZwpnqs1qMc9K6sb_4FOUHKm2Shw/formResponse",
       {
@@ -89,11 +127,11 @@ async function enviarGoogleForms(data: Inscricao) {
           "entry.751901408": data.matrimonio,
           "entry.185868768": data.paroquia,
 
-          "entry.297646185": data.doenca,
-          "entry.252422887": data.alergia,
-          "entry.770932675": data.medicamento,
-          "entry.822009504": data.analgesico,
-          "entry.296201086": data.restricoes,
+          "entry.297646185": data.doenca ?? "",
+          "entry.252422887": data.alergia ?? "",
+          "entry.770932675": data.medicamento ?? "",
+          "entry.822009504": data.analgesico ?? "",
+          "entry.296201086": data.restricoes ?? "",
 
           "entry.579507263": data.conheceu,
           "entry.1551602519": data.contatoEmergencia,
@@ -102,9 +140,7 @@ async function enviarGoogleForms(data: Inscricao) {
         }),
       }
     );
-
   } catch {
-    /* não quebra inscrição se Google falhar */
     console.log("Google Forms falhou, mas inscrição salva.");
   }
 }
