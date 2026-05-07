@@ -18,42 +18,55 @@ let currentQR = null;
 /* ================= START WHATS ================= */
 
 async function start() {
-  const { state, saveCreds } = await useMultiFileAuthState("./auth");
+  try {
+    console.log("🔥 Iniciando WhatsApp...");
 
-  sock = makeWASocket({
-    auth: state,
-    printQRInTerminal: false,
-    logger: P({ level: "silent" }),
-    browser: ["Eleutheria", "Chrome", "1.0"],
-  });
+    const { state, saveCreds } = await useMultiFileAuthState(
+      process.cwd() + "/auth"
+    );
 
-  sock.ev.on("connection.update", async (update) => {
-    const { connection, lastDisconnect, qr } = update;
+    console.log("📁 Auth preparado");
 
-    if (qr) {
-      currentQR = await QRCode.toDataURL(qr);
-      console.log("📱 QR atualizado (acesse /qr)");
-    }
+    sock = makeWASocket({
+      auth: state,
+      printQRInTerminal: false,
+      logger: P({ level: "silent" }),
+      browser: ["Eleutheria", "Chrome", "1.0"],
+    });
 
-    if (connection === "close") {
-      const shouldReconnect =
-        lastDisconnect?.error?.output?.statusCode !==
-        DisconnectReason.loggedOut;
+    sock.ev.on("connection.update", async (update) => {
+      console.log("🔄 UPDATE:", JSON.stringify(update));
 
-      console.log("❌ Conexão fechada. Reconectando...", shouldReconnect);
+      const { connection, lastDisconnect, qr } = update;
 
-      if (shouldReconnect) {
-        setTimeout(start, 3000);
+      if (qr) {
+        console.log("📱 QR RECEBIDO!");
+
+        currentQR = await QRCode.toDataURL(qr);
       }
-    }
 
-    if (connection === "open") {
-      console.log("✅ WhatsApp conectado!");
-      currentQR = null;
-    }
-  });
+      if (connection === "close") {
+        const shouldReconnect =
+          lastDisconnect?.error?.output?.statusCode !==
+          DisconnectReason.loggedOut;
 
-  sock.ev.on("creds.update", saveCreds);
+        console.log("❌ Conexão fechada. Reconectando...", shouldReconnect);
+
+        if (shouldReconnect) {
+          setTimeout(start, 3000);
+        }
+      }
+
+      if (connection === "open") {
+        console.log("✅ WhatsApp conectado!");
+        currentQR = null;
+      }
+    });
+
+    sock.ev.on("creds.update", saveCreds);
+  } catch (err) {
+    console.error("💥 ERRO NO START:", err);
+  }
 }
 
 /* ================= QR PAGE ================= */
@@ -63,7 +76,8 @@ app.get("/qr", (req, res) => {
     return res.send(`
       <html>
         <body style="font-family:sans-serif;text-align:center;margin-top:50px;">
-          <h2>✅ WhatsApp já conectado</h2>
+          <h2>⏳ Aguardando QR ou já conectado...</h2>
+          <p>Atualize a página</p>
         </body>
       </html>
     `);
@@ -93,6 +107,10 @@ app.post("/send", async (req, res) => {
       return res.status(400).json({ error: "Dados inválidos" });
     }
 
+    if (!sock) {
+      return res.status(500).json({ error: "WhatsApp não conectado ainda" });
+    }
+
     const jid = phone.replace(/\D/g, "") + "@s.whatsapp.net";
 
     await sock.sendMessage(jid, { text: message });
@@ -101,7 +119,7 @@ app.post("/send", async (req, res) => {
 
     return res.json({ success: true });
   } catch (err) {
-    console.error("Erro ao enviar:", err);
+    console.error("❌ Erro ao enviar:", err);
     return res.status(500).json({ error: "Erro ao enviar mensagem" });
   }
 });
@@ -112,7 +130,7 @@ app.get("/", (req, res) => {
   res.send("WhatsApp API rodando 🚀");
 });
 
-/* ================= START ================= */
+/* ================= START SERVER ================= */
 
 const PORT = process.env.PORT || 3001;
 
