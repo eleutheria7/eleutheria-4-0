@@ -13,7 +13,6 @@ const app = express();
 app.use(express.json());
 
 let sock;
-let currentQR = null;
 
 /* ================= START WHATS ================= */
 
@@ -35,16 +34,22 @@ async function start() {
     });
 
     sock.ev.on("connection.update", async (update) => {
-      console.log("🔄 UPDATE:", JSON.stringify(update));
-
       const { connection, lastDisconnect, qr } = update;
 
-      if (qr) {
-        console.log("📱 QR RECEBIDO!");
+      console.log("🔄 UPDATE:", update.connection);
 
-        currentQR = await QRCode.toDataURL(qr);
+      /* ===== QR ===== */
+      if (qr) {
+        console.log("📱 QR GERADO!");
+
+        const qrImage = await QRCode.toDataURL(qr);
+
+        console.log("\n👇 COPIE ESSA URL E ABRA NO NAVEGADOR:\n");
+        console.log(qrImage);
+        console.log("\n============================\n");
       }
 
+      /* ===== CONEXÃO ===== */
       if (connection === "close") {
         const shouldReconnect =
           lastDisconnect?.error?.output?.statusCode !==
@@ -59,43 +64,15 @@ async function start() {
 
       if (connection === "open") {
         console.log("✅ WhatsApp conectado!");
-        currentQR = null;
       }
     });
 
     sock.ev.on("creds.update", saveCreds);
+
   } catch (err) {
     console.error("💥 ERRO NO START:", err);
   }
 }
-
-/* ================= QR PAGE ================= */
-
-app.get("/qr", (req, res) => {
-  if (!currentQR) {
-    return res.send(`
-      <html>
-        <body style="font-family:sans-serif;text-align:center;margin-top:50px;">
-          <h2>⏳ Aguardando QR ou já conectado...</h2>
-          <p>Atualize a página</p>
-        </body>
-      </html>
-    `);
-  }
-
-  res.send(`
-    <html>
-      <head>
-        <title>QR WhatsApp</title>
-      </head>
-      <body style="text-align:center;font-family:sans-serif;">
-        <h2>📱 Escaneie o QR</h2>
-        <img src="${currentQR}" />
-        <p>Atualize a página se não aparecer</p>
-      </body>
-    </html>
-  `);
-});
 
 /* ================= ENVIAR MSG ================= */
 
