@@ -36,15 +36,15 @@ async function start() {
     sock.ev.on("connection.update", async (update) => {
       const { connection, lastDisconnect, qr } = update;
 
-      console.log("🔄 UPDATE:", update.connection);
+      console.log("🔄 STATUS:", connection);
 
       /* ===== QR ===== */
       if (qr) {
-        console.log("📱 QR GERADO!");
+        console.log("\n📱 QR GERADO!");
 
         const qrImage = await QRCode.toDataURL(qr);
 
-        console.log("\n👇 COPIE ESSA URL E ABRA NO NAVEGADOR:\n");
+        console.log("\n👇 COPIE ESSA URL E COLE NO NAVEGADOR:\n");
         console.log(qrImage);
         console.log("\n============================\n");
       }
@@ -88,11 +88,18 @@ app.post("/send", async (req, res) => {
       return res.status(500).json({ error: "WhatsApp não conectado ainda" });
     }
 
-    const jid = phone.replace(/\D/g, "") + "@s.whatsapp.net";
+    // 🔥 limpeza do número
+    let cleanPhone = phone.replace(/\D/g, "");
+
+    if (!cleanPhone.startsWith("55")) {
+      cleanPhone = "55" + cleanPhone;
+    }
+
+    const jid = cleanPhone + "@s.whatsapp.net";
 
     await sock.sendMessage(jid, { text: message });
 
-    console.log("📨 Enviado para:", phone);
+    console.log("📨 Enviado para:", cleanPhone);
 
     return res.json({ success: true });
   } catch (err) {
