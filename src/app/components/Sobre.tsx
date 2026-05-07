@@ -31,7 +31,7 @@ export default function Sobre() {
             <p className="text-gray-600 text-lg leading-relaxed">
               Eleutheria nasce do desejo profundo de proporcionar um encontro
               verdadeiro com Deus. Um retiro pensado para transformar,
-              libertar e renovar corações.
+              libertar e renovar corações
             </p>
           </div>
         </div>

@@ -10,8 +10,22 @@ export async function POST(req: Request) {
   try {
     /* ========= TRATAMENTO ========= */
 
-    const phone = data.whatsapp.replace(/\D/g, "");
     const cpf = data.cpf.replace(/\D/g, "");
+
+    // 📱 TELEFONE AJUSTADO
+    const rawPhone = data.whatsapp.replace(/\D/g, "");
+
+    const phone = rawPhone.startsWith("55")
+      ? rawPhone
+      : `55${rawPhone}`;
+
+    // 🔍 VALIDAÇÃO SIMPLES
+    if (phone.length < 12 || phone.length > 13) {
+      return NextResponse.json(
+        { error: "Número de WhatsApp inválido." },
+        { status: 400 }
+      );
+    }
 
     /* ========= SALVA NO BANCO ========= */
 
@@ -34,7 +48,7 @@ export async function POST(req: Request) {
     /* ========= ENVIA WHATSAPP ========= */
 
     try {
-  const mensagem = `Olá ${data.nome}! 🙏
+      const mensagem = `Olá ${data.nome}! 🙏
 
 Sua inscrição no Eleutheria 2026 foi confirmada!
 
@@ -43,26 +57,30 @@ https://seusite.com/pagamento
 
 Deus abençoe!`;
 
-  const response = await fetch(`${process.env.WHATSAPP_API_URL}/send`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      // opcional (se usar token)
-      // "Authorization": "Bearer seu-token"
-    },
-    body: JSON.stringify({
-      phone: phone,
-      message: mensagem,
-    }),
-  });
+      const response = await fetch(`${process.env.WHATSAPP_API_URL}/send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // 🔐 Se estiver usando token, ativa isso:
+          // "Authorization": `Bearer ${process.env.WHATSAPP_TOKEN}`,
+        },
+        body: JSON.stringify({
+          phone,
+          message: mensagem,
+        }),
+      });
 
-  if (!response.ok) {
-    throw new Error(`Falha ao enviar WhatsApp: ${response.status}`);
-  }
+      if (!response.ok) {
+        const text = await response.text();
+        console.error("Erro WhatsApp:", text);
+        throw new Error(`Falha ao enviar WhatsApp: ${response.status}`);
+      }
 
-} catch (err) {
-  console.error("Erro ao enviar WhatsApp:", err);
-}
+    } catch (err) {
+      console.error("Erro ao enviar WhatsApp:", err);
+      // ⚠️ não quebra fluxo principal
+    }
+
     /* ========= RESPOSTA ========= */
 
     return NextResponse.json({
@@ -104,7 +122,6 @@ async function enviarGoogleForms(data: Inscricao) {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
-
           "entry.1535034637": data.nome,
           "entry.215175828": data.cpf,
           "entry.51056734": data.nascimento,
