@@ -7,12 +7,13 @@ import makeWASocket, {
 
 import P from "pino";
 import express from "express";
-import QRCode from "qrcode-terminal";
+import QRCode from "qrcode";
 
 const app = express();
 app.use(express.json());
 
 let sock;
+let currentQR = null;
 
 /* ================= START WHATS ================= */
 
@@ -26,13 +27,12 @@ async function start() {
     browser: ["Eleutheria", "Chrome", "1.0"],
   });
 
-  /* QR CODE */
-  sock.ev.on("connection.update", (update) => {
+  sock.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect, qr } = update;
 
     if (qr) {
-      console.log("📱 Escaneie o QR:");
-      QRCode.generate(qr, { small: true });
+      currentQR = await QRCode.toDataURL(qr);
+      console.log("📱 QR atualizado (acesse /qr)");
     }
 
     if (connection === "close") {
@@ -43,18 +43,45 @@ async function start() {
       console.log("❌ Conexão fechada. Reconectando...", shouldReconnect);
 
       if (shouldReconnect) {
-        start();
+        setTimeout(start, 3000);
       }
     }
 
     if (connection === "open") {
       console.log("✅ WhatsApp conectado!");
+      currentQR = null;
     }
   });
 
-  /* SALVAR SESSÃO */
   sock.ev.on("creds.update", saveCreds);
 }
+
+/* ================= QR PAGE ================= */
+
+app.get("/qr", (req, res) => {
+  if (!currentQR) {
+    return res.send(`
+      <html>
+        <body style="font-family:sans-serif;text-align:center;margin-top:50px;">
+          <h2>✅ WhatsApp já conectado</h2>
+        </body>
+      </html>
+    `);
+  }
+
+  res.send(`
+    <html>
+      <head>
+        <title>QR WhatsApp</title>
+      </head>
+      <body style="text-align:center;font-family:sans-serif;">
+        <h2>📱 Escaneie o QR</h2>
+        <img src="${currentQR}" />
+        <p>Atualize a página se não aparecer</p>
+      </body>
+    </html>
+  `);
+});
 
 /* ================= ENVIAR MSG ================= */
 
@@ -66,9 +93,11 @@ app.post("/send", async (req, res) => {
       return res.status(400).json({ error: "Dados inválidos" });
     }
 
-    const jid = phone + "@s.whatsapp.net";
+    const jid = phone.replace(/\D/g, "") + "@s.whatsapp.net";
 
     await sock.sendMessage(jid, { text: message });
+
+    console.log("📨 Enviado para:", phone);
 
     return res.json({ success: true });
   } catch (err) {
@@ -77,13 +106,13 @@ app.post("/send", async (req, res) => {
   }
 });
 
-/* ================= HEALTHCHECK ================= */
+/* ================= HEALTH ================= */
 
 app.get("/", (req, res) => {
   res.send("WhatsApp API rodando 🚀");
 });
 
-/* ================= START SERVER ================= */
+/* ================= START ================= */
 
 const PORT = process.env.PORT || 3001;
 
