@@ -7,7 +7,7 @@ import makeWASocket, {
 
 import P from "pino";
 import express from "express";
-import QRCode from "qrcode";
+import QRCode from "qrcode-terminal";
 
 const app = express();
 app.use(express.json());
@@ -17,61 +17,43 @@ let sock;
 /* ================= START WHATS ================= */
 
 async function start() {
-  try {
-    console.log("🔥 Iniciando WhatsApp...");
+  const { state, saveCreds } = await useMultiFileAuthState("./auth");
 
-    const { state, saveCreds } = await useMultiFileAuthState(
-      process.cwd() + "/auth"
-    );
+  sock = makeWASocket({
+    auth: state,
+    printQRInTerminal: false,
+    logger: P({ level: "silent" }),
+    browser: ["Eleutheria", "Chrome", "1.0"],
+  });
 
-    console.log("📁 Auth preparado");
+  /* QR CODE */
+  sock.ev.on("connection.update", (update) => {
+    const { connection, lastDisconnect, qr } = update;
 
-    sock = makeWASocket({
-      auth: state,
-      printQRInTerminal: false,
-      logger: P({ level: "silent" }),
-      browser: ["Eleutheria", "Chrome", "1.0"],
-    });
+    if (qr) {
+      console.log("📱 Escaneie o QR:");
+      QRCode.generate(qr, { small: true });
+    }
 
-    sock.ev.on("connection.update", async (update) => {
-      const { connection, lastDisconnect, qr } = update;
+    if (connection === "close") {
+      const shouldReconnect =
+        lastDisconnect?.error?.output?.statusCode !==
+        DisconnectReason.loggedOut;
 
-      console.log("🔄 STATUS:", connection);
+      console.log("❌ Conexão fechada. Reconectando...", shouldReconnect);
 
-      /* ===== QR ===== */
-      if (qr) {
-        console.log("\n📱 QR GERADO!");
-
-        const qrImage = await QRCode.toDataURL(qr);
-
-        console.log("\n👇 COPIE ESSA URL E COLE NO NAVEGADOR:\n");
-        console.log(qrImage);
-        console.log("\n============================\n");
+      if (shouldReconnect) {
+        start();
       }
+    }
 
-      /* ===== CONEXÃO ===== */
-      if (connection === "close") {
-        const shouldReconnect =
-          lastDisconnect?.error?.output?.statusCode !==
-          DisconnectReason.loggedOut;
+    if (connection === "open") {
+      console.log("✅ WhatsApp conectado!");
+    }
+  });
 
-        console.log("❌ Conexão fechada. Reconectando...", shouldReconnect);
-
-        if (shouldReconnect) {
-          setTimeout(start, 3000);
-        }
-      }
-
-      if (connection === "open") {
-        console.log("✅ WhatsApp conectado!");
-      }
-    });
-
-    sock.ev.on("creds.update", saveCreds);
-
-  } catch (err) {
-    console.error("💥 ERRO NO START:", err);
-  }
+  /* SALVAR SESSÃO */
+  sock.ev.on("creds.update", saveCreds);
 }
 
 /* ================= ENVIAR MSG ================= */
@@ -84,31 +66,18 @@ app.post("/send", async (req, res) => {
       return res.status(400).json({ error: "Dados inválidos" });
     }
 
-    if (!sock) {
-      return res.status(500).json({ error: "WhatsApp não conectado ainda" });
-    }
-
-    // 🔥 limpeza do número
-    let cleanPhone = phone.replace(/\D/g, "");
-
-    if (!cleanPhone.startsWith("55")) {
-      cleanPhone = "55" + cleanPhone;
-    }
-
-    const jid = cleanPhone + "@s.whatsapp.net";
+    const jid = phone + "@s.whatsapp.net";
 
     await sock.sendMessage(jid, { text: message });
 
-    console.log("📨 Enviado para:", cleanPhone);
-
     return res.json({ success: true });
   } catch (err) {
-    console.error("❌ Erro ao enviar:", err);
+    console.error("Erro ao enviar:", err);
     return res.status(500).json({ error: "Erro ao enviar mensagem" });
   }
 });
 
-/* ================= HEALTH ================= */
+/* ================= HEALTHCHECK ================= */
 
 app.get("/", (req, res) => {
   res.send("WhatsApp API rodando 🚀");
