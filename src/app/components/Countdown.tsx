@@ -41,14 +41,23 @@ export default function Countdown() {
       }
     };
 
-    calculateTimeLeft(); 
+    calculateTimeLeft();
+
     const interval = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="bg-black text-white p-6 h-[110px] flex items-center justify-center gap-10 rounded-2xl">
+    <div
+      className="
+        bg-black text-white rounded-2xl
+        h-[110px] lg:h-[110px]
+        px-4 sm:px-6
+        flex items-center justify-center
+        gap-4 sm:gap-8 lg:gap-10
+      "
+    >
       <TimeBox value={timeLeft.dias} label="Dias" />
       <TimeBox value={timeLeft.horas} label="Horas" />
       <TimeBox value={timeLeft.minutos} label="Min" />
@@ -57,11 +66,22 @@ export default function Countdown() {
   );
 }
 
-function TimeBox({ value, label }: { value: number; label: string }) {
+function TimeBox({
+  value,
+  label,
+}: {
+  value: number;
+  label: string;
+}) {
   return (
-    <div className="text-center">
-      <div className="text-2xl font-bold">{value}</div>
-      <div className="text-sm">{label}</div>
+    <div className="text-center min-w-[55px] sm:min-w-[70px]">
+      <div className="text-xl sm:text-2xl font-bold">
+        {value}
+      </div>
+
+      <div className="text-xs sm:text-sm">
+        {label}
+      </div>
     </div>
   );
 }
