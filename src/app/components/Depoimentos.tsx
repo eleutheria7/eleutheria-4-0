@@ -134,18 +134,23 @@ const cards: Depoimento[] = [
     image: "/img_page/Giovana Schicovski.jpg",
   },
   {
-    text: "Uma experiência que mudou minha vida espiritual.",
-    author: "João P.",
-    image: "/img_page/pessoa2.jpg",
+    text: "Eu fui para este retiro bem como haviam pedido: de coração aberto, meu objetivo era aproveitar cada momento ao máximo e prestar muita atenção nas pregações e homilias, e hoje após este retiro eu posso dizer que, sim, eu aproveitei cada segundo ao máximo, chorei muito, fiz novas amizades e tive vários momentos sentindo a presença de Jesus. Se eu pudesse descrever o Eleutheria de duas formas elas seriam: vida nova, porque ao sair de lá você sai com a motivação para ter uma vida nova, e também família, porque o motivo principal do meu choro foi ter percebido que as pessoas da igreja também são a minha família, e o tanto que nós acolhemos uns aos outros é lindo. Eu acho que todo mundo deveria viver essa experiência.",
+    author: "Bruna Felix",
+    image: "/img_page/bruna_felix.jpeg",
   },
   {
-    text: "Foi um retiro transformador. Deus falou comigo profundamente.",
-    author: "Maria S.",
-    image: "/img_page/pessoa3.jpg",
+    text: "Eu me chamo Maria Natália, tenho 25 anos e o Eleutheria foi o meu primeiro retiro. Não participei de outros retiros por medo e insegurança, mas estava afastada da fé e decidi que era hora de mudar. E essa foi a melhor escolha! Conheci pessoas novas, me senti muito acolhida e acima de tudo, me reencontrei com Deus! Foi uma experiência infinitamente maravilhosa! Sinto que minha vida mudou completamente, após o retiro!",
+    author: "Maria Natália",
+    image: "/img_page/Natalia.jpg",
   },
   {
-    text: "Encontrei paz e direção para minha caminhada.",
-    author: "Carlos M.",
-    image: "/img_page/pessoa4.jpg",
+    text: "Me chamo Guilherme, tenho 23 anos, e havia me afastado de Deus por um longo tempo. Porém, o Eleutheria foi como uma guia para me reconectar e voltar para casa. No começo, senti um nervosismo de ir para um lugar onde não conhecia ninguém, mas, depois de fazer algumas novas amizades e viver tudo o que aconteceu lá, com tantas pessoas buscando reencontrar Deus e renovar sua fé, as pregações de pessoas incríveis me inspiraram muito. Hoje, não consigo mais imaginar minha vida fora da casa do Pai. Sem dúvida, participarei sempre que puder.",
+    author: "Guilherme",
+    image: "/img_page/Guilherme.jpg",
+  },
+  {
+    text: "Me chamo Giovana, tenho 18 anos e com certeza o Eleutheria foi a melhor experiência da minha vida. O retiro onde eu conseguia ver Jesus em todas as pessoas, tanto as que serviram e se doaram muito para estar ali, quanto nos retirantes também. Tive minha primeira experiência pessoal com Cristo no retiro e nunca esqueço de nenhum momento que vivi ali, das palestras, das orações, dos momentos de adoração, do sorriso de cada um, da comida muito boa nunca me senti tão bem, acolhida e tão feliz em toda minha vida, mesmo. Eleutheria é uma benção, e grande graça do Senhor foi participar.",
+    author: "Giovana Cruz",
+    image: "img_page/Giovana Cruz.jpg",
   },
 ];
