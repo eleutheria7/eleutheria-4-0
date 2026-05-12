@@ -134,7 +134,7 @@ const cards: Depoimento[] = [
     image: "/img_page/Giovana Schicovski.jpg",
   },
   {
-    text: "Eu fui para este retiro bem como haviam pedido: de coração aberto, meu objetivo era aproveitar cada momento ao máximo e prestar muita atenção nas pregações e homilias, e hoje após este retiro eu posso dizer que, sim, eu aproveitei cada segundo ao máximo, chorei muito, fiz novas amizades e tive vários momentos sentindo a presença de Jesus. Se eu pudesse descrever o Eleutheria de duas formas elas seriam: vida nova, porque ao sair de lá você sai com a motivação para ter uma vida nova, e também família, porque o motivo principal do meu choro foi ter percebido que as pessoas da igreja também são a minha família, e o tanto que nós acolhemos uns aos outros é lindo. Eu acho que todo mundo deveria viver essa experiência.",
+    text: "Eu fui para este retiro bem como haviam pedido: de coração aberto, meu objetivo era aproveitar cada momento e prestar muita atenção nas pregações e homilias, e hoje eu posso dizer que, sim, eu aproveitei cada segundo, chorei, fiz novas amizades e tive vários momentos sentindo a presença de Jesus. Se eu pudesse descrever o Eleutheria de duas formas elas seriam: vida nova, porque ao sair de lá você sai com a motivação para ter uma vida nova, e também família, porque o motivo principal do meu choro foi ter percebido que as pessoas da igreja também são a minha família, e o tanto que nós acolhemos uns aos outros é lindo. Eu acho que todo mundo deveria viver essa experiência.",
     author: "Bruna Felix",
     image: "/img_page/bruna_felix.jpeg",
   },
