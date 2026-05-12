@@ -107,22 +107,21 @@ export default function InscricaoPopup({
           </p>
 
           <p>
-            Caso deseje, você pode realizar o pagamento agora mesmo
-            clicando no botão abaixo.
+            Estamos muito felizes com sua participação e mal podemos esperar para te-lo(a) conosco.
           </p>
 
           <p>
-            Ou poderá realizar o pagamento posteriormente utilizando o botão
+            Em breve iremos entrar em contato para confirmar os detalhes do evento e fornecer as informações de pagamento.
           </p>
 
           <p>
             <strong>
-              {"Já fiz a inscrição, desejo realizar o pagamento"}
+              {"Fique atento(a) para as próximas informações"}
             </strong>
           </p>
 
           <p>
-            localizado no topo deste formulário.
+            Deus abençoe!
           </p>
 
         </div>
@@ -135,32 +134,6 @@ export default function InscricaoPopup({
             gap-4
           "
         >
-
-          <button
-            style={{ background: "blue", color: "white" }}
-            onClick={onClose}
-            className="
-              flex-1
-
-              bg-gray-100
-              hover:bg-gray-200
-
-              text-black
-
-              py-3
-              px-4
-
-              rounded-xl
-
-              font-semibold
-
-              text-sm sm:text-base
-
-              transition
-            "
-          >
-            💳 Realizar Pagamento Agora
-          </button>
 
         </div>
 

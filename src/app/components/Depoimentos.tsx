@@ -151,6 +151,6 @@ const cards: Depoimento[] = [
   {
     text: "Me chamo Giovana, tenho 18 anos e com certeza o Eleutheria foi a melhor experiência da minha vida. O retiro onde eu conseguia ver Jesus em todas as pessoas, tanto as que serviram e se doaram muito para estar ali, quanto nos retirantes também. Tive minha primeira experiência pessoal com Cristo no retiro e nunca esqueço de nenhum momento que vivi ali, das palestras, das orações, dos momentos de adoração, do sorriso de cada um, da comida muito boa nunca me senti tão bem, acolhida e tão feliz em toda minha vida, mesmo. Eleutheria é uma benção, e grande graça do Senhor foi participar.",
     author: "Giovana Cruz",
-    image: "img_page/Giovana Cruz.jpg",
+    image: "/img_page/Giovana_Cruz.jpg"
   },
 ];
