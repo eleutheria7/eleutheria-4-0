@@ -268,7 +268,7 @@ leading-relaxed
 </p>
 
 <p>
-<strong>Valor:</strong> Indefinido
+<strong>Valor:</strong> $130,00 (cento e trinta reais) - inclui transporte, alimentação, hospedagem...
 </p>
 
 </div>
