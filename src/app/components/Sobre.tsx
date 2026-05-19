@@ -33,7 +33,7 @@ export default function Sobre() {
           <div className="w-full lg:w-[45%] text-left">
 
             <Image
-              src="/img_page/Imagem1.jpg"
+              src="/fotos/Capa3.jpeg"
               alt="Missão"
               width={600}
               height={400}
@@ -49,13 +49,12 @@ export default function Sobre() {
             />
 
             <h2 className="text-black text-2xl sm:text-3xl font-bold mb-4">
-              Nossa Missão
+              Oque é o Eleutheria?
             </h2>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Eleutheria nasce do desejo profundo de proporcionar um encontro
-              verdadeiro com Deus. Um retiro pensado para transformar,
-              libertar e renovar corações.
+              O Eleutheria é um retiro católico organizado pela juventude da Paróquia Santa Luzia de Hortolândia/SP, destinado a jovens de 14 a 30 anos.
+              Criado especialmente para proporcionar dias de encontro verdadeiro com Deus!
             </p>
 
           </div>
@@ -66,7 +65,7 @@ export default function Sobre() {
           <div className="w-full lg:w-[45%] text-left">
 
             <Image
-              src="/img_page/Imagem2.jpg"
+              src="/fotos/Capa2.jpeg"
               alt="Experiência"
               width={600}
               height={400}
@@ -82,12 +81,12 @@ export default function Sobre() {
             />
 
             <h2 className="text-black text-2xl sm:text-3xl font-bold mb-4">
-              Uma Experiência Única
+              Oque é a palavra Eleutheria?
             </h2>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Mais do que um evento, é uma experiência de fé, comunhão
-              e espiritualidade profunda.
+              {"Eleutheria"} é uma palavra grega (Ελευθερία) que significa {"liberdade"}. No contexto cristão, especialmente no catolicismo, o termo {"Eleutheria"} é usado para se referir à liberdade espiritual que vem da relação com Deus.
+               Nesse sentido, a Eleutheria não se refere apenas à liberdade física ou política, mas sim à liberdade interior que permite que as pessoas vivam de acordo com a vontade de Deus e alcancem a plenitude da vida.
             </p>
 
           </div>
@@ -98,7 +97,7 @@ export default function Sobre() {
           <div className="w-full lg:w-[45%] text-left">
 
             <Image
-              src="/img_page/Imagem27.jpg"
+              src="/fotos/Capa4.jpeg"
               alt="Comunidade"
               width={600}
               height={400}
@@ -114,12 +113,12 @@ export default function Sobre() {
             />
 
             <h2 className="text-black text-2xl sm:text-3xl font-bold mb-4">
-              Comunidade
+              Sobre a essência do retiro
             </h2>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Pessoas reunidas pelo mesmo propósito: buscar a Deus com
-              intensidade e verdade.
+              Você tem uma oportunidade real de viver algo novo com Deus. Se reencontrar e sentir o amor de Deus de forma verdadeira. São dias cheios de alegria, paz e muita amizade.
+              Nossa intenção no Eleutheria é te proporcionar dias marcantes na presença de Jesus Eucarístico e do Espírito Santo, para que você viva um verdadeiro encontro com o amor de Deus. 
             </p>
 
           </div>
@@ -130,7 +129,7 @@ export default function Sobre() {
           <div className="w-full lg:w-[45%] text-left">
 
             <Image
-              src="/img_page/Imagem3.jpg"
+              src="/fotos/Capa1.jpeg"
               alt="Transformação"
               width={600}
               height={400}
@@ -146,11 +145,12 @@ export default function Sobre() {
             />
 
             <h2 className="text-black text-2xl sm:text-3xl font-bold mb-4">
-              Transformação
+              Por que participar do Eleuteria 2026?
             </h2>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Um marco espiritual que pode mudar sua caminhada para sempre.
+              Vivemos cercados por distrações, pressa e preocupações que muitas vezes nos afastam daquilo que realmente importa. Participar desse retiro é parar por alguns dias, respirar e permitir que Deus fale ao seu coração. 
+              É escolher viver algo diferente: momentos de oração, alegria, amizades sinceras e experiências que podem transformar sua vida. Talvez seja exatamente o tempo que você precisava para recomeçar.
             </p>
 
           </div>
