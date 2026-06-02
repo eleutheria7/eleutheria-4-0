@@ -85,7 +85,6 @@ export default function Header() {
           {/* MENU */}
           <nav>
             <ul className="flex gap-6 text-gray-800 font-medium text-lg">
-
               <li>
                 <a
                   href="#sobre"

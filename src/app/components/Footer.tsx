@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   Facebook,
   Instagram,
@@ -7,7 +9,9 @@ import {
   MessageCircle,
 } from "lucide-react";
 
+
 export default function Footer() {
+  const router = useRouter();
   return (
     <footer className="bg-white text-gray-800 px-5 sm:px-8 lg:px-10 py-12 lg:py-16">
       
@@ -36,6 +40,12 @@ export default function Footer() {
             ].map((btn) => (
               <button
                 key={btn}
+                onClick={() => {
+                  if (btn === "Inscrição") router.push("/formulario");
+                  if (btn === "Dias de Missa") window.open("https://scontent-gru1-2.cdninstagram.com/v/t51.82787-15/564181607_18092139850839356_2555514405071213468_n.webp?stp=dst-webp_p480x480&_nc_cat=103&ig_cache_key=Mjk0NTE0MTUxODExMDMwMDA4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IlNUT1JZLnhwaWRzLjcyMC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=-0aCGYCKRWMQ7kNvwG-p94x&_nc_oc=AdoiWR28kM0tTEFtxjrz4zH6qka2Vs9PHJsLRSyT77GuebOG0KieYR_Z8GMCFhcUQ8A&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-gru1-2.cdninstagram.com&_nc_gid=G4nD30cFfNHh99wCVurt2g&_nc_ss=7a22e&oh=00_Af9bOPv1jq11-dqdLvvQMw3ozqLnDIVr0ZdH7IF-8Dg8SQ&oe=6A240330", "_blank");
+                  if (btn === "Retiros Passados") window.open("https://eleutheria-3-0.vercel.app", "_blank");
+                  if (btn === "Whatsapp da paróquia") window.open("https://wa.me/551938192184", "_blank");
+                }}
                 className="
                   flex justify-between items-center
                   w-full
