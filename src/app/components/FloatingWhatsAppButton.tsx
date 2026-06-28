@@ -5,7 +5,7 @@ import { FaWhatsapp } from "react-icons/fa";
 export default function FloatingWhatsAppButton() {
   return (
     <a
-      href="https://wa.me/5519998009803"
+      href="https://wa.me/5519953288802"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
