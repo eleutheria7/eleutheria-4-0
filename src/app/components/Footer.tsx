@@ -182,7 +182,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://wa.me/5599999999999"
+              href="https://wa.me/5519953288802"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 transition"
